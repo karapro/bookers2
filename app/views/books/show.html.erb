@@ -1,0 +1,8 @@
+<div class="book-body">
+  <p>title:<%= @book.title %></p>
+  <p>opinion:<%= @book.opinion %></p>
+  <%= link_to"編集", edit_book_path(@book) %>
+  <% if @book.user == current_user %>
+    <%= link_to "削除", book_path(@book), method: :delete %>
+  <% end %>
+</div>
