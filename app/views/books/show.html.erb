@@ -1,8 +1,31 @@
-<div class="book-body">
-  <p>title:<%= @book.title %></p>
-  <p>opinion:<%= @book.opinion %></p>
-  <%= link_to"編集", edit_book_path(@book) %>
-  <% if @book.user == current_user %>
-    <%= link_to "削除", book_path(@book), method: :delete %>
-  <% end %>
+<%= render 'layouts/notifications' %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/user', user: @user %>
+      <h2>New book</h2>
+      <%= render 'books/book', book: @new_book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h1>Book detail</h1>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(@user) do %>
+                <%= attachment_image_tag @user, :profile_image, format:'jpeg', fallback: "no_image.jpg", size: "40x40" %><br>
+                <%= @user.name %>
+              <% end %>
+            </td>
+            <td><%= @book.title %></td>
+            <td><%= @book.body %></td>
+            <% if @book.user_id == current_user.id %>
+              <td><%= link_to "Edit", edit_book_path(@book), class:"btn btn-success" %></td>
+              <td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に消しますか？"}, class:"btn btn-danger" %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
